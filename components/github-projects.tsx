@@ -15,7 +15,7 @@ export function GithubProjects() {
   useEffect(() => {
     async function fetchRepos() {
       try {
-        const data = await getRepositories("TheRockzi");
+        const data = await getRepositories("Amazi");
         setRepos(data);
       } catch (error) {
         console.error("Error fetching repositories:", error);
