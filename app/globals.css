@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 230 25% 5%;
+    --foreground: 210 20% 98%;
+    --card: 230 25% 5%;
+    --card-foreground: 210 20% 98%;
+    --popover: 230 25% 5%;
+    --popover-foreground: 210 20% 98%;
+    --primary: 230 60% 70%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 180 70% 65%;
+    --secondary-foreground: 210 20% 98%;
+    --accent: 282 60% 70%;
+    --accent-foreground: 210 20% 98%;
+    --muted: 230 25% 15%;
+    --muted-foreground: 210 20% 80%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 230 25% 15%;
+    --input: 230 25% 15%;
+    --ring: 230 25% 83.1%;
+    --highlight: 144 60% 70%;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background-image: 
+      radial-gradient(circle at 50% 0%, hsl(230 25% 10%), transparent 50%),
+      radial-gradient(circle at 0% 50%, hsl(180 25% 10%), transparent 50%),
+      radial-gradient(circle at 100% 50%, hsl(282 25% 10%), transparent 50%);
+  }
+}
+
+.glassmorphism {
+  @apply bg-white/5 backdrop-blur-md border border-white/10 shadow-lg;
+  background-image: linear-gradient(135deg, rgba(255,255,255,0.05), transparent);
+}
+
+.neon-glow {
+  @apply transition-all duration-700;
+  text-shadow: 0 0 1px currentColor,
+               0 0 2px currentColor,
+               0 0 4px currentColor;
+  opacity: 0.9;
+}
+
+.neon-glow:hover {
+  opacity: 1;
+  text-shadow: 0 0 2px currentColor,
+               0 0 4px currentColor,
+               0 0 8px currentColor;
+}
+
+.elegant-button {
+  @apply transition-all duration-700 relative overflow-hidden;
+  background: linear-gradient(135deg, 
+    rgba(255,255,255,0.1), 
+    rgba(255,255,255,0.05), 
+    rgba(255,255,255,0.025)
+  );
+}
+
+.elegant-button::before {
+  content: '';
+  @apply absolute inset-0 opacity-0 transition-opacity duration-700;
+  background: linear-gradient(135deg,
+    rgba(255,255,255,0.1),
+    rgba(255,255,255,0.05)
+  );
+}
+
+.elegant-button:hover::before {
+  @apply opacity-100;
+}
+
+.custom-cursor {
+  @apply fixed w-8 h-8 pointer-events-none mix-blend-difference z-50;
+  transform: translate(-50%, -50%);
+}
+
+.hover-trigger:hover ~ .custom-cursor {
+  @apply scale-150 transition-transform duration-500;
+}
