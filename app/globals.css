@@ -2,92 +2,152 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --background: 230 25% 5%;
-    --foreground: 210 20% 98%;
-    --card: 230 25% 5%;
-    --card-foreground: 210 20% 98%;
-    --popover: 230 25% 5%;
-    --popover-foreground: 210 20% 98%;
-    --primary: 230 60% 70%;
-    --primary-foreground: 210 20% 98%;
-    --secondary: 180 70% 65%;
-    --secondary-foreground: 210 20% 98%;
-    --accent: 282 60% 70%;
-    --accent-foreground: 210 20% 98%;
-    --muted: 230 25% 15%;
-    --muted-foreground: 210 20% 80%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 20% 98%;
-    --border: 230 25% 15%;
-    --input: 230 25% 15%;
-    --ring: 230 25% 83.1%;
-    --highlight: 144 60% 70%;
-    --radius: 0.75rem;
-  }
+:root {
+  --primary-red: #ff0000;
+  --primary-cyan: #00e5ff;
+  --background: #0a0a0a;
+  --card-bg: #141414;
+  --cyber-purple: #bc13fe;
+  --hacker-red: #ff003c;
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
   body {
-    @apply bg-background text-foreground;
-    background-image: 
-      radial-gradient(circle at 50% 0%, hsl(230 25% 10%), transparent 50%),
-      radial-gradient(circle at 0% 50%, hsl(180 25% 10%), transparent 50%),
-      radial-gradient(circle at 100% 50%, hsl(282 25% 10%), transparent 50%);
+    @apply bg-[#0a0a0a] text-white font-sans;
   }
 }
 
-.glassmorphism {
-  @apply bg-white/5 backdrop-blur-md border border-white/10 shadow-lg;
-  background-image: linear-gradient(135deg, rgba(255,255,255,0.05), transparent);
+@keyframes glitch {
+  0% { text-shadow: 2px 0 0 var(--hacker-red), -2px 0 0 var(--cyber-purple); }
+  2% { text-shadow: 3px 0.5rem 0 var(--hacker-red), -3px -0.5rem 0 var(--cyber-purple); }
+  4% { text-shadow: none; }
+  96% { text-shadow: none; }
+  98% { text-shadow: -3px 0 0 var(--hacker-red), 3px 0 0 var(--cyber-purple); }
 }
 
-.neon-glow {
-  @apply transition-all duration-700;
-  text-shadow: 0 0 1px currentColor,
-               0 0 2px currentColor,
-               0 0 4px currentColor;
-  opacity: 0.9;
+.title-glitch {
+  animation: glitch 4s infinite;
+  text-shadow: 2px 0 0 var(--hacker-red), -2px 0 0 var(--cyber-purple);
 }
 
-.neon-glow:hover {
-  opacity: 1;
-  text-shadow: 0 0 2px currentColor,
-               0 0 4px currentColor,
-               0 0 8px currentColor;
+@layer components {
+  .sidebar-item {
+    @apply flex items-center gap-3 px-4 py-3 text-gray-400 w-full 
+           hover:bg-black/20 rounded-lg transition-all duration-300
+           border border-transparent hover:border-white/5
+           hover:text-[#ff0000] hover:translate-x-1;
+  }
+
+  .stat-card {
+    @apply bg-black/40 backdrop-blur-md border border-white/10 rounded-lg p-6
+           hover:border-white/20 transition-all duration-300
+           shadow-lg shadow-black/20 hover:shadow-xl hover:shadow-black/30
+           hover:scale-[1.02] hover:bg-black/50;
+  }
+
+  .chart-container {
+    @apply bg-black/40 backdrop-blur-md border border-white/10 rounded-lg p-6 mt-6
+           hover:border-white/20 transition-all duration-300
+           shadow-lg shadow-black/20 hover:shadow-xl hover:shadow-black/30
+           hover:bg-black/50;
+  }
+
+  .search-input {
+    @apply w-full bg-black/40 backdrop-blur-md border border-[#ff0000]/20 rounded-lg px-4 py-2 text-white
+           placeholder:text-gray-500 focus:outline-none focus:border-[#ff0000]/40
+           transition-all duration-300 hover:border-[#ff0000]/30;
+  }
+
+  .new-scan-button {
+    @apply bg-[#ff0000] text-white px-6 py-2 rounded-lg 
+           hover:bg-[#ff0000]/90 transition-all duration-300
+           font-medium shadow-lg shadow-[#ff0000]/20
+           border border-[#ff0000]/50 hover:border-[#ff0000]
+           hover:scale-105 hover:shadow-xl hover:shadow-[#ff0000]/30;
+  }
+
+  .scan-button {
+    @apply bg-black/40 backdrop-blur-md text-white px-6 py-2 rounded-lg 
+           hover:bg-black/60 transition-all duration-300
+           font-medium shadow-lg shadow-black/20
+           border border-white/10 hover:border-white/20
+           hover:scale-105;
+  }
+
+  .dashboard-header {
+    @apply text-2xl font-semibold bg-gradient-to-r from-white to-gray-500 bg-clip-text text-transparent
+           hover:from-[#ff0000] hover:to-white transition-all duration-500;
+  }
+
+  .stat-value {
+    @apply text-3xl font-semibold mb-2 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent;
+  }
+
+  .stat-label {
+    @apply text-sm text-gray-400 transition-colors group-hover:text-[#ff0000];
+  }
+
+  .chart-title {
+    @apply text-gray-400 font-medium transition-colors group-hover:text-[#ff0000];
+  }
 }
 
-.elegant-button {
-  @apply transition-all duration-700 relative overflow-hidden;
-  background: linear-gradient(135deg, 
-    rgba(255,255,255,0.1), 
-    rgba(255,255,255,0.05), 
-    rgba(255,255,255,0.025)
-  );
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: rgba(255, 255, 255, 0.1);
 }
 
-.elegant-button::before {
-  content: '';
-  @apply absolute inset-0 opacity-0 transition-opacity duration-700;
-  background: linear-gradient(135deg,
-    rgba(255,255,255,0.1),
-    rgba(255,255,255,0.05)
-  );
+.recharts-text {
+  fill: #666;
 }
 
-.elegant-button:hover::before {
-  @apply opacity-100;
+.system-activity path {
+  stroke: var(--primary-red);
+  stroke-width: 2;
+  filter: drop-shadow(0 0 4px rgba(255, 0, 0, 0.5));
 }
 
-.custom-cursor {
-  @apply fixed w-8 h-8 pointer-events-none mix-blend-difference z-50;
-  transform: translate(-50%, -50%);
+.threat-detection path {
+  stroke: var(--primary-cyan);
+  stroke-width: 2;
+  filter: drop-shadow(0 0 4px rgba(0, 229, 255, 0.5));
 }
 
-.hover-trigger:hover ~ .custom-cursor {
-  @apply scale-150 transition-transform duration-500;
+/* Glassmorphism effects */
+.glass-effect {
+  @apply bg-black/40 backdrop-blur-md border border-white/10;
+}
+
+/* Animations */
+@keyframes glow {
+  0%, 100% { 
+    text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 15px #ff0000;
+  }
+  50% { 
+    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
+  }
+}
+
+.glow-text {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 0, 0, 0.5);
 }
